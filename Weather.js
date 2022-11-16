@@ -1,5 +1,5 @@
 import React from "react";
-import propTypes from "prop-types";
+import propTypes, { any } from "prop-types";
 import { StyleSheet, Text, View, StatusBar } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -70,20 +70,22 @@ const weatherOptions = {
 
 export default function Weather({ temp, condition }) {
   return (
-    <LinearGradient
-      // Button Linear Gradient
-      colors={weatherOptions[condition].gradient}
-      style={styles.container}>
-      <StatusBar barStyle="light-content" />
-      <View style={styles.halfContainer}>
-        <MaterialCommunityIcons name={weatherOptions[condition].iconName} size={96} color="white" />
-        <Text style={styles.temp}>{temp}°</Text>
-      </View>
-      <View style={{...styles.halfContainer, ...styles.textConteiner}}>
-        <Text style={styles.title}>{weatherOptions[condition].title}</Text>
-        <Text style={styles.subtitle}>{weatherOptions[condition].subtitle}</Text>
-      </View>
-    </LinearGradient>
+    <View style={styles.wrapper}>
+      <LinearGradient
+        // Button Linear Gradient
+        colors={weatherOptions[condition].gradient}
+        style={styles.container}>
+        <StatusBar barStyle="light-content" />
+        <View style={styles.halfContainer}>
+          <MaterialCommunityIcons name={weatherOptions[condition].iconName} size={96} color="white" />
+          <Text style={styles.temp}>{temp}°</Text>
+        </View>
+        <View style={{ ...styles.halfContainer, ...styles.textConteiner }}>
+          <Text style={styles.title}>{weatherOptions[condition].title}</Text>
+          <Text style={styles.subtitle}>{weatherOptions[condition].subtitle}</Text>
+        </View>
+      </LinearGradient>
+    </View>
   );
 }
 
@@ -94,10 +96,16 @@ Weather.propTypes = {
 }
 
 const styles = StyleSheet.create({
+  wrapper: {    
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    maxWidth: 480,
   },
   temp: {
     color: "white",
